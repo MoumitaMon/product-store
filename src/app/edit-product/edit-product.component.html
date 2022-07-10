@@ -1,0 +1,30 @@
+<div class="content">
+<form [formGroup]="editForm">
+    <mat-form-field>
+        <mat-label>Store ID</mat-label>
+        <input type="text" matInput formControlName="storeId">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>SKU</mat-label>
+        <input type="text" matInput formControlName="sku">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Product Name</mat-label>
+        <input type="text" matInput formControlName="productName">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Price</mat-label>
+        <input type="text" matInput formControlName="price">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Date</mat-label>
+        <input type="text" matInput formControlName="date">
+    </mat-form-field>
+    
+    </form>
+    <button mat-button color="primary" (click)="save()">Save</button>
+    <button mat-button mat-dialog-close>Cancel</button>
+</div>
+
+    
+    

@@ -1,0 +1,69 @@
+<div class="content">
+<div class="upload-file-section">
+    <button mat-raised-button color="primary" (click)="fileInput.click()">Import CSV file</button>
+    <div *ngIf="file" class="file-name"> 
+        <span>{{file?.name}}</span>
+        <button mat-raised-button (click)="upload(); fileInput.value=''">Upload</button>
+    </div>
+    <input hidden type="file" accept=".csv" (change)="onFileSelect($event)" #fileInput />
+</div>
+
+<div *ngIf="products.length !== 0 || isFilterOn">
+<div>
+    <form [formGroup]="searchForm">
+        
+        <mat-form-field>
+            <mat-label>Search By</mat-label>
+            <mat-select formControlName="propertyName">
+            <mat-option *ngFor="let item of productProperty" value="{{item.key}}">{{item.value}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Input</mat-label>
+            <input type="search" matInput formControlName="searchValue">
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="findProduct()" [disabled]="!searchForm.valid">Search</button>
+        <button mat-raised-button (click)="viewAllProduct()" *ngIf="isFilterOn">View All</button>
+    </form>
+</div>
+<div *ngIf="products.length !== 0">
+    <table mat-table [dataSource]="products" class="mat-elevation-z8">
+        <ng-container matColumnDef="storeId">
+            <th mat-header-cell *matHeaderCellDef>Store ID</th>
+            <td mat-cell *matCellDef="let product">{{product.storeId}}</td>
+        </ng-container>
+        <ng-container matColumnDef="sku">
+            <th mat-header-cell *matHeaderCellDef>SKU</th>
+            <td mat-cell *matCellDef="let product">{{product.sku}}</td>
+        </ng-container>
+        <ng-container matColumnDef="productName">
+            <th mat-header-cell *matHeaderCellDef>Product Name</th>
+            <td mat-cell *matCellDef="let product">{{product.productName}}</td>
+        </ng-container>
+        <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef>Price</th>
+            <td mat-cell *matCellDef="let product">{{product.price | currency:'RS'}}</td>
+        </ng-container>
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let product">{{product.date | date: 'MM-dd-YYYY'}}</td>
+        </ng-container>
+        <ng-container matColumnDef="actionButton">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let product">
+                <button mat-icon-button color="primary" aria-label="edit row" (click)="editProduct(product)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" aria-label="edit row" (click)="deleteProduct(product)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+</div>
+<div *ngIf="isFilterOn && products.length == 0">No product found</div>
+</div>
+
+</div>
