@@ -1,0 +1,5 @@
+storeId,sku,productName,price,date,
+store01,abc000,product1,100,5-11-2022
+store02,abc001,product2,110,6-12-2022
+store03,abc003,product3,120,7-13-2022
+store04,abc004,product4,130,8-14-2022
